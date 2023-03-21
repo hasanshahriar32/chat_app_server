@@ -1,6 +1,8 @@
 const express = require("express");
-const { chats } = require("./data/data");
+const dotenv = require("dotenv");
+const { chats } = require("./backend/data/data");
 const app = express();
+dotenv.config();
 const PORT = 5000 || process.env.PORT;
 
 app.get("/", (req, res) => {
@@ -9,6 +11,11 @@ app.get("/", (req, res) => {
 
 app.get("/api/chat", (req, res) => {
   res.send(chats);
+});
+
+app.get("/api/chat/:id", (req, res) => {
+  const chat = chats.find((c) => c._id === req.params.id);
+  res.send(chat);
 });
 
 app.listen(PORT, () => {
