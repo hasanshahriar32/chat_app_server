@@ -3,6 +3,10 @@ const dotenv = require("dotenv");
 const { chats } = require("./backend/data/data");
 const app = express();
 dotenv.config();
+//add cors
+const cors = require("cors");
+app.use(cors());
+
 const PORT = 5000 || process.env.PORT;
 
 app.get("/", (req, res) => {
