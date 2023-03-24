@@ -1,12 +1,15 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const { chats } = require("./backend/data/data");
-const app = express();
+const connectDB = require("./backend/config/db");
+const colors = require("colors");
 dotenv.config();
+connectDB();
+const app = express();
 //add cors
 const cors = require("cors");
+const { connect } = require("mongoose");
 app.use(cors());
-
 const PORT = 5000 || process.env.PORT;
 
 app.get("/", (req, res) => {
@@ -23,7 +26,7 @@ app.get("/api/chat/:id", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`.yellow.bold);
 });
 
 // const { MongoClient, ServerApiVersion } = require("mongodb");
