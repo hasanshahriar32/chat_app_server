@@ -4,6 +4,10 @@ const { chats } = require("./backend/data/data");
 const connectDB = require("./backend/config/db");
 const userRoutes = require("./backend/routes/userRoutes");
 const colors = require("colors");
+const {
+  notFound,
+  errorHandler,
+} = require("./backend/middleWare/errMiddleWare");
 dotenv.config();
 connectDB();
 const app = express();
@@ -29,6 +33,9 @@ app.get("/", (req, res) => {
 // });
 
 app.use("/api/user", userRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`.yellow.bold);
