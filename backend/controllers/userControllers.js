@@ -7,7 +7,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (!name || !email || !password) {
     res.status(422).json({ error: "Please add all the fields" });
-    throw new Error("Please add all the fields");
+    throw new Error("Please add all required fields");
   }
   const userExists = await User.findOne({ email });
   if (userExists) {
