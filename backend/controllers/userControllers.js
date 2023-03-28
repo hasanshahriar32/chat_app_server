@@ -64,9 +64,14 @@ const allUsers = asyncHandler(async (req, res) => {
       }
     : {};
 
-  const users = await User.find({ ...keyword }).find({
-    _id: { $ne: req.user._id },
-  });
+  //send top 7 results
+  const users = await User.find({ ...keyword })
+    .find({
+      _id: { $ne: req.user._id },
+    })
+    .sort({ score: { $meta: "textScore" } })
+    .limit(7);
+  // const users = await User.find({ ...keyword }).find;
   res.json(users);
 });
 
