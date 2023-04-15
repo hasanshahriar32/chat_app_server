@@ -171,6 +171,12 @@ const addUser = asyncHandler(async (req, res) => {
   }
   res.status(200).send(added);
 });
+const deleteChat = async (req, res) => {
+  const id = req.params.id;
+  const chat = await Chat.deleteOne({ _id: id });
+  console.log(chat);
+  res.send(chat);
+};
 
 module.exports = {
   accessChat,
@@ -179,4 +185,5 @@ module.exports = {
   renameGroup,
   removeFromGroup,
   addUser,
+  deleteChat,
 };
