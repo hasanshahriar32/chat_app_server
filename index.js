@@ -21,9 +21,9 @@ app.use(express.json());
 app.use("/api/user", userRoutes);
 const PORT = 5000 || process.env.PORT;
 
-// app.get("/", (req, res) => {
-//   res.send("api is running");
-// });
+app.get("/", (req, res) => {
+  res.send("api is running");
+});
 
 // app.get("/api/chat", (req, res) => {
 //   res.send(chats);
@@ -41,23 +41,6 @@ app.use("/api/message", messageRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-// ----------Deployment---------
-
-const __dirname1 = path.resolve();
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname1, "../chat_app_ui/build")));
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname1, "..", "chat_app_ui", "build", "index.js")
-    );
-  });
-} else {
-  app.get("/", (req, res) => {
-    res.send("api is running");
-  });
-}
-
-// ----------Deployment---------
 const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`.yellow.bold);
 });
