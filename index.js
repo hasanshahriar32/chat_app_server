@@ -21,6 +21,24 @@ app.use(express.json());
 app.use("/api/user", userRoutes);
 const PORT = 5000 || process.env.PORT;
 
+// Add headers to allow cross-origin requests
+app.use((req, res, next) => {
+  // Set the Access-Control-Allow-Origin header to allow requests from any origin
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  // Set the Access-Control-Allow-Methods header to allow GET, POST, PUT, DELETE, and OPTIONS methods
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  // Set the Access-Control-Allow-Headers header to allow the Origin, X-Requested-With, Content-Type, Accept, and Authorization headers
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  // Call next() to pass the request to the next middleware function
+  next();
+});
+
 app.get("/", (req, res) => {
   res.send("api is running");
 });
