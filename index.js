@@ -20,7 +20,19 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/user", userRoutes);
 const PORT = 5000 || process.env.PORT;
+const Pusher = require("pusher");
 
+const pusher = new Pusher({
+  appId: "1588815",
+  key: "271e6288274030d8251a",
+  secret: "f4875429002ed9e85c90",
+  cluster: "ap2",
+  useTLS: true,
+});
+
+pusher.trigger("my-channel", "my-event", {
+  message: "hello world",
+});
 // Add headers to allow cross-origin requests
 app.use((req, res, next) => {
   // Set the Access-Control-Allow-Origin header to allow requests from any origin
